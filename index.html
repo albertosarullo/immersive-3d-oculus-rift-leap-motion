@@ -1,0 +1,85 @@
+<html>
+<head>
+  <title>Oculus Rift + Leap Motion</title>
+
+  <!-- note - the light grabbing doesn't work with r68 -->
+  <script src="javascript/three.min.js"></script>
+
+  <script src="javascript/leap-0.6.2.min.js"></script>
+  <script src="javascript/leap-plugins-0.1.7.min.js"></script>
+  <script src="javascript/leap.rigged-hand-0.1.5.js"></script>
+  <!-- Slightly modified version of OculusRiftEffect.js from THREE.js to target for DK2 -->
+  <script src="javascript/OculusRiftEffect.js"></script>
+  
+
+  <script src="javascript/ImprovedNoise.js"></script>
+  <script src="javascript/OculusRiftEffect.js"></script>
+  <script src="javascript/FirstPersonControls.js"></script>
+  <script src="javascript/OculusControls.js"></script>
+
+
+  <style>
+    body {
+      margin: 0;
+      color: #ccc;
+      font-family: helvetica neue, lucida grande, sans-serif;
+      background: #000000;
+    }
+    a{
+      color: white;
+    }
+    a:active{
+      color: blue;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="info">
+  <p>
+    Designed to be used with a Oculus-mounted Leap Device.
+    <a href="#" onclick="goFullScreen();">GO FULLSCREEN</a>
+  </p>
+  <script>
+    var interactionDistance = 20000;
+    function goFullScreen(){
+      var elem = document.body;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      }
+    }
+
+    function printModel (e) {
+  
+    // construct an HTTP request
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://printer3d-mi3.valueteam.com:9080/api/files/local/olaf.gcode", true);
+      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      xhr.setRequestHeader('X-Api-Key', 'F70FA681895D476E835BBEB23F28F803');
+
+      // send the collected data as JSON
+      xhr.send('{ "command": "select", "print": true }');
+
+      xhr.onloadend = function () {
+        // done
+        if (console.log) {
+          console.log("DONE")
+        }
+      };
+  };
+  </script>
+
+</div>
+
+</body>
+<script src="javascript/scene.js"></script>
+<script src="javascript/controller.js"></script>
+</html>
